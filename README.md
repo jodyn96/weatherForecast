@@ -13,7 +13,7 @@ Create a single page web app that leverages asynchronous javascript to display t
 
 -Use the API at https://openweathermap.org/ This will require you sign up for a free account to get an API key.
 
--The API route to use is: https://api.openweathermap.org/data/2.5/forecast?zip=[ZIP CODE],us&amp;APPID=[YOUR API KEY]
+-The API route to use is: https://api.openweathermap.org/data/2.5/forecast?zip=[ZIP_CODE],us&amp;APPID=[YOUR_API_KEY]
 
 -API route documentation: https://openweathermap.org/forecast5
 
