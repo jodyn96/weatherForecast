@@ -1,0 +1,61 @@
+*
+{
+	font-family: helvetica;
+}
+
+header
+{
+	background-color: #aaaaaa;
+	color: #000000;
+	font-size: 30px;
+	font-weight: bold;
+	width: 100%;
+	padding: 5px;
+	margin: -5px 0 0 -5px;
+}
+
+p
+{
+	color: #444444;
+}
+
+.info
+{
+	margin: 15px 0 25px -5px;
+}
+
+.weatherResponse
+{
+	font-size: 15px;
+}
+
+.cityName
+{
+	font-weight: bold;
+	font-size: 25px;
+	margin: -5px 0 15px -5px;
+}
+
+table
+{
+	font-size: 15px;
+	width: 100%;
+	margin: -5px 0 0 -5px;
+	border: solid;
+	border-color: #bbbbbb;
+}
+
+th
+{
+	background-color: #cccccc;
+}
+
+td
+{
+	background-color: #eeeeee;
+}
+
+th, td
+{
+	padding: 5px 0 5px 0;
+}
