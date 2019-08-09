@@ -1,55 +1,77 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Weather Forecast</title>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+	    <title>Weather Forecast</title>
+		<script src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<link rel = "stylesheet" href = "styles.css">
 	</head>
 
 	<body>
 		<header>Weather Forecast</header>
 
-		<p class = "info">Enter Zip Code: 
-			<input id="zipCode"></input>
-			<button id="getWeatherForcast">Get Weather</button>
+		<p class = "info">Enter Zip Code:
+			<input id = "zipCode"></input>
+			<button id = "getWeatherForecast">Get Weather</button>
 		</p>
-		
-		<div class="showWeatherForcast"></div>
 
-		<script type="text/javascript">
+		<div class = "showWeatherForecast"></div>
+
+		<script>
+			const key = '5777292a084357e42f36aa026564723b', apicall = 'http://api.openweathermap.org/data/2.5/forecast'
+
+			const prepareData = function(units)
+			{
+				let zipCode = $('#zipCode').val()
+
+				if (zipCode && zipCode != '')
+				{
+					zipCode = zipCode.trim()
+					getData(apicall, zipCode, key, units)
+				}
+			}
+
 			$(document).ready(function()
 			{
-				$("#getWeatherForcast").click(function()
+				$('#getWeatherForecast').click(function()
 				{
-					var zipCode = $("#zipCode").val();
-					var key  = '5777292a084357e42f36aa026564723b';
+					prepareData('imperial')
+				})
+			})
 
-					$.ajax
-					({
-						url:'http://api.openweathermap.org/data/2.5/weather?zip=49509&appid='+key,
-						dataType:'json',
-						type:'GET',
-						data:{q: zipCode, appid: key, units: 'imperial'},
+			function getData (url, zipCode, key, units)
+			{
+				const request = $.ajax
+				({
+					url: url,
+					dataType: "json",
+					data: {q: zipCode, appid: key, units: units},
+					type: "GET",
 
-						success: function(data)
+					success : function (forecast)
+					{
+						console.log(forecast)
+						let wf = '',
+						
+						zipCode = forecast.city.name,
+						country = forecast.city.country
+						
+						wf += `<p class = cityName> ${zipCode}, ${country}</p>`
+						
+						forecast.list.forEach(function(forecastEntry, index, list)
 						{
-							var wf = '';
-							$.each(data.weather, function(index, val)
-							{
-								wf += "<p class = cityName>" + data.name + "</p>" +
-								"<div class = container><table><tr>" +
-								"<th>Date & Time:</th>" +
-								"<th>Temperature:</th>" +
-								"<th>Pressure:</th></tr><tr>" +
-								"<td>" + data.dt + "</td>" +
-								"<td>" + data.main.temp + ' &deg;F '  + "</td>" +
-								"<td>" + data.main.pressure  + "</td></tr></table></div>"
-							});
-							$(".showWeatherForcast").html(wf);
-						}
-					})
-				});
-			});
+							wf += `<div class = container>
+							<table><tr>
+							<th>Date & Time:</th>
+							<th>Temperature:</th>
+							<th>Pressure:</th></tr><tr>
+							<td>${forecastEntry.dt_txt}</td>
+							<td>${forecastEntry.main.temp} &deg;F</td>
+							<td>${forecastEntry.main.pressure}</td></tr></table></div><br>`
+						})
+						$('.showWeatherForecast').html(wf)
+					}
+				})
+			}
 		</script>
 	</body>
 </html>
